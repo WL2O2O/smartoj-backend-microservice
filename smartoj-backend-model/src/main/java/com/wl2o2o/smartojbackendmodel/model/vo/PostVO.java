@@ -2,7 +2,7 @@ package com.wl2o2o.smartojbackendmodel.model.vo;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.wl2o2o.smartoj.model.entity.Post;
+import com.wl2o2o.smartojbackendmodel.model.entity.Post;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 

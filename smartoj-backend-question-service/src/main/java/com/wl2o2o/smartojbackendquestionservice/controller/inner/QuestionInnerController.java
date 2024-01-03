@@ -17,7 +17,8 @@ import javax.annotation.Resource;
  * @CreateTime 2024/1/3
  */
 
-@RestController("/inner")
+@RestController
+@RequestMapping("/inner")
 public class QuestionInnerController implements QuestionFeignClient {
 
     @Resource

@@ -31,7 +31,7 @@ public interface UserFeignClient {
      * @param userId
      * @return
      */
-    @GetMapping("/get/it")
+    @GetMapping("/get/id")
     User getById(@RequestParam("userId") long userId);
 
     /**

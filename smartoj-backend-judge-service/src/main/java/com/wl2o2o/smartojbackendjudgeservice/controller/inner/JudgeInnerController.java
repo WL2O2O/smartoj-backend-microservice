@@ -4,6 +4,7 @@ import com.wl2o2o.smartojbackendjudgeservice.judge.JudgeService;
 import com.wl2o2o.smartojbackendmodel.model.entity.QuestionSubmit;
 import com.wl2o2o.smartojbackendserviceclient.service.JudgeFeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,8 @@ import javax.annotation.Resource;
  * @CreateTime 2024/1/3
  */
 
-@RestController("/inner")
+@RestController
+@RequestMapping("/inner")
 public class JudgeInnerController implements JudgeFeignClient {
 
     @Resource

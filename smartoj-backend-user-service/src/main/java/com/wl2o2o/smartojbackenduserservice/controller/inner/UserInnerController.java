@@ -4,6 +4,7 @@ import com.wl2o2o.smartojbackendmodel.model.entity.User;
 import com.wl2o2o.smartojbackendserviceclient.service.UserFeignClient;
 import com.wl2o2o.smartojbackenduserservice.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,8 @@ import java.util.List;
  * @CreateTime 2024/1/3
  */
 
-@RestController("/inner")
+@RestController
+@RequestMapping("/inner")
 public class UserInnerController implements UserFeignClient {
 
     @Resource
@@ -32,7 +34,7 @@ public class UserInnerController implements UserFeignClient {
      * @return
      */
     @Override
-    @GetMapping("/get/it")
+    @GetMapping("/get/id")
     public User getById(@RequestParam("userId") long userId) {
         return userService.getById(userId);
     }

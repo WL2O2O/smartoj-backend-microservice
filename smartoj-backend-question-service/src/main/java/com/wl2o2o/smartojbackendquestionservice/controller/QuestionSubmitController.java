@@ -11,7 +11,7 @@ import com.wl2o2o.smartojbackendmodel.model.entity.QuestionSubmit;
 import com.wl2o2o.smartojbackendmodel.model.entity.User;
 import com.wl2o2o.smartojbackendmodel.model.vo.QuestionSubmitVO;
 import com.wl2o2o.smartojbackendquestionservice.service.QuestionSubmitService;
-import com.wl2o2o.smartojbackendserviceclient.service.UserService;
+import com.wl2o2o.smartojbackendserviceclient.service.UserFeignClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +37,7 @@ public class QuestionSubmitController {
     private QuestionSubmitService questionSubmitService;
 
     @Resource
-    private UserService userService;
+    private UserFeignClient userService;
 
     /**
      * 题目提交 / 取消题目提交

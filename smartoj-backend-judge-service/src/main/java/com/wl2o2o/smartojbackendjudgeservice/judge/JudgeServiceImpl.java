@@ -14,8 +14,7 @@ import com.wl2o2o.smartojbackendmodel.model.dto.question.JudgeCase;
 import com.wl2o2o.smartojbackendmodel.model.entity.Question;
 import com.wl2o2o.smartojbackendmodel.model.entity.QuestionSubmit;
 import com.wl2o2o.smartojbackendmodel.model.enums.QuestionSubmitStatusEnum;
-import com.wl2o2o.smartojbackendserviceclient.service.QuestionService;
-import com.wl2o2o.smartojbackendserviceclient.service.QuestionSubmitService;
+import com.wl2o2o.smartojbackendserviceclient.service.QuestionFeignClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -37,24 +36,19 @@ public class JudgeServiceImpl implements JudgeService {
     private String type;
 
     @Resource
-    private QuestionService questionService;
+    private QuestionFeignClient questionFeignClient;
 
     @Resource
     private JudgeManager judgeManager;
 
-
-    @Resource
-    private QuestionSubmitService questionSubmitService;
-
-
     @Override
     public QuestionSubmit doJudge(long questionSubmitId) {
-        QuestionSubmit questionSubmit = questionSubmitService.getById(questionSubmitId);
+        QuestionSubmit questionSubmit = questionFeignClient.getQuestionSubmitById(questionSubmitId);
         if (questionSubmit == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "提交信息不存在！");
         }
         Long questionId = questionSubmit.getQuestionId();
-        Question question = questionService.getById(questionId);
+        Question question = questionFeignClient.getQuestionById(questionId);
         if (question == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "题目不存在！");
         }
@@ -64,7 +58,7 @@ public class JudgeServiceImpl implements JudgeService {
         QuestionSubmit questionSubmitUpdate = new QuestionSubmit();
         questionSubmitUpdate.setId(questionSubmitId);
         questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.RUNNING.getValue());
-        boolean update = questionSubmitService.updateById(questionSubmitUpdate);
+        boolean update = questionFeignClient.updateQuestionSubmitById(questionSubmitUpdate);
         if (!update) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "题目状态更新错误");
         }
@@ -103,11 +97,11 @@ public class JudgeServiceImpl implements JudgeService {
         questionSubmitUpdate.setId(questionSubmitId);
         questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.SUCCEED.getValue());
         questionSubmitUpdate.setJudgeInfo(JSONUtil.toJsonStr(judgeInfo));
-        update = questionSubmitService.updateById(questionSubmitUpdate);
+        update = questionFeignClient.updateQuestionSubmitById(questionSubmitUpdate);
         if (!update) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "题目状态更新错误");
         }
-        QuestionSubmit questionSubmitResult = questionSubmitService.getById(questionId);
+        QuestionSubmit questionSubmitResult = questionFeignClient.getQuestionSubmitById(questionId);
         return questionSubmitResult;
     }
 }

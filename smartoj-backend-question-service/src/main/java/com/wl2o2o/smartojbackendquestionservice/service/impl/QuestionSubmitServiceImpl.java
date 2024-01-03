@@ -18,8 +18,8 @@ import com.wl2o2o.smartojbackendmodel.model.vo.QuestionSubmitVO;
 import com.wl2o2o.smartojbackendquestionservice.mapper.QuestionSubmitMapper;
 import com.wl2o2o.smartojbackendquestionservice.service.QuestionService;
 import com.wl2o2o.smartojbackendquestionservice.service.QuestionSubmitService;
-import com.wl2o2o.smartojbackendserviceclient.service.JudgeService;
-import com.wl2o2o.smartojbackendserviceclient.service.UserService;
+import com.wl2o2o.smartojbackendserviceclient.service.JudgeFeignClient;
+import com.wl2o2o.smartojbackendserviceclient.service.UserFeignClient;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -43,11 +43,11 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
     @Resource
     @Lazy
-    private JudgeService judgeService;
+    private JudgeFeignClient judgeFeignClient;
 
 
     @Resource
-    private UserService userService;
+    private UserFeignClient userFeignClient;
 
     /**
      * 题目提交
@@ -88,7 +88,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         // 执行判题相关的业务
         Long questionSubmitId = questionSubmit.getId();
         CompletableFuture.runAsync(()->{
-            judgeService.doJudge(questionSubmitId);
+            judgeFeignClient.doJudge(questionSubmitId);
         });
 
         return questionSubmitId;
@@ -139,7 +139,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         // 脱敏：仅提交用户和管理员可以看见自己提交代码
         Long userId = loginUser.getId();
         // 处理脱敏
-        if (!userService.isAdmin(loginUser) && userId != questionSubmit.getUserId()) {
+        if (!userFeignClient.isAdmin(loginUser) && userId != questionSubmit.getUserId()) {
             questionSubmitVO.setCode(null);
         }
         return questionSubmitVO;

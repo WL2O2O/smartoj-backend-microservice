@@ -30,7 +30,7 @@ import java.util.List;
  * @from <a href="https://wl2o2o.github.io">CSGUIDER博客</a>
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/")
 @Slf4j
 public class UserController {
 

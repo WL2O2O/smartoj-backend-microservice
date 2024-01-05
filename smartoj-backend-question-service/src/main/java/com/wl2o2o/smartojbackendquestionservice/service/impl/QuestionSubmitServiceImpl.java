@@ -16,6 +16,7 @@ import com.wl2o2o.smartojbackendmodel.model.enums.QuestionSubmitLanguageEnum;
 import com.wl2o2o.smartojbackendmodel.model.enums.QuestionSubmitStatusEnum;
 import com.wl2o2o.smartojbackendmodel.model.vo.QuestionSubmitVO;
 import com.wl2o2o.smartojbackendquestionservice.mapper.QuestionSubmitMapper;
+import com.wl2o2o.smartojbackendquestionservice.message.MyMessageProducer;
 import com.wl2o2o.smartojbackendquestionservice.service.QuestionService;
 import com.wl2o2o.smartojbackendquestionservice.service.QuestionSubmitService;
 import com.wl2o2o.smartojbackendserviceclient.service.JudgeFeignClient;
@@ -28,7 +29,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -48,6 +48,9 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
     @Resource
     private UserFeignClient userFeignClient;
+
+    @Resource
+    private MyMessageProducer myMessageProducer;
 
     /**
      * 题目提交
@@ -85,13 +88,17 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (!save) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "数据插入失败");
         }
-        // 执行判题相关的业务
+        // 执行判题相关的业务：把题目提交 ID 传入消息队列
         Long questionSubmitId = questionSubmit.getId();
-        CompletableFuture.runAsync(()->{
-            judgeFeignClient.doJudge(questionSubmitId);
-        });
+        myMessageProducer.sendMessage("code_exchange", "my_routingKey", String.valueOf(questionSubmitId));
+
+        // 这是原来的异步调用判题逻辑
+        // CompletableFuture.runAsync(()->{
+        //     judgeFeignClient.doJudge(questionSubmitId);
+        // });
 
         return questionSubmitId;
+
         // 每个用户串行题目提交
         // // 锁必须要包裹住事务方法
         // QuestionSubmitService questionSubmitService = (QuestionSubmitService) AopContext.currentProxy();

@@ -36,7 +36,7 @@ public class MyMessageConsumer {
                 judgeService.doJudge(questionSubmitId);
                 channel.basicAck(deliveryTag, false);
             } catch (Exception e) {
-                channel.basicNack(questionSubmitId, false, true);
+                channel.basicNack(questionSubmitId, false, false);
             }
         } else {
             throw new RuntimeException("题目id为空");

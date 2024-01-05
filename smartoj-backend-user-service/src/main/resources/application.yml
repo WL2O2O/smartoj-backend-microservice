@@ -38,6 +38,9 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+#    inetutils:
+#      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
+
 server:
   address: 0.0.0.0
   port: 8102
@@ -59,3 +62,6 @@ mybatis-plus:
 # 代码沙箱
 codesandbox:
   type: remote
+# 开启接口文档
+knife4j:
+  enable: true

@@ -27,6 +27,12 @@
             <artifactId>smartoj-backend-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-openapi2-spring-boot-starter -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
+            <version>4.4.0</version>
+        </dependency>
 
         <dependency>
             <groupId>com.wl2o2o</groupId>

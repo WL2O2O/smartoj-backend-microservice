@@ -9,6 +9,7 @@ import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,14 +60,9 @@ public class QuestionVO implements Serializable {
     private Integer acceptNum;
 
     /**
-     * 点赞数量
+     * 创建时间
      */
-    private Integer thumbNum;
-
-    /**
-     * 收藏数量
-     */
-    private Integer favourNum;
+    private Date createTime;
 
     /**
      * 创建题目人的信息

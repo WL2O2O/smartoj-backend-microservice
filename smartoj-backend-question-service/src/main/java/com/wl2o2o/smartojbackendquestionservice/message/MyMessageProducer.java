@@ -18,7 +18,6 @@ public class MyMessageProducer {
 
     /**
      * 发送消息
-     *
      * @param exchange
      * @param routingKey
      * @param message

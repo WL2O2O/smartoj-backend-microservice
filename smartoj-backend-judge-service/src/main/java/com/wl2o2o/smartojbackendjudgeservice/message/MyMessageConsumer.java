@@ -4,7 +4,6 @@ import com.rabbitmq.client.Channel;
 import com.wl2o2o.smartojbackendjudgeservice.judge.JudgeService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -31,15 +30,11 @@ public class MyMessageConsumer {
         log.info("receiveMessage message = {}", message);
         long questionSubmitId = Long.parseLong(message);
         // 调用消息队列
-        if (StringUtils.isNotEmpty(Long.toString(questionSubmitId))) {
-            try {
-                judgeService.doJudge(questionSubmitId);
-                channel.basicAck(deliveryTag, false);
-            } catch (Exception e) {
-                channel.basicNack(questionSubmitId, false, false);
-            }
-        } else {
-            throw new RuntimeException("题目id为空");
+        try {
+            judgeService.doJudge(questionSubmitId);
+            channel.basicAck(deliveryTag, false);
+        } catch (Exception e) {
+            channel.basicNack(deliveryTag, false, false);
         }
     }
 

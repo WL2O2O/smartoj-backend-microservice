@@ -74,6 +74,22 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (question == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
+
+        // // 更新题目的submitNum字段
+        // questionService.incrementSubmitNum(questionId);
+        // 设置提交数
+        Integer submitNum = question.getSubmitNum();
+        Question updateQuestion = new Question();
+        synchronized (question.getSubmitNum()) {
+            submitNum = submitNum + 1;
+            updateQuestion.setId(questionId);
+            updateQuestion.setSubmitNum(submitNum);
+            boolean save = questionService.updateById(updateQuestion);
+            if (!save) {
+                throw new BusinessException(ErrorCode.OPERATION_ERROR, "数据保存失败");
+            }
+        }
+
         // 是否已题目提交
         long userId = loginUser.getId();
         QuestionSubmit questionSubmit = new QuestionSubmit();

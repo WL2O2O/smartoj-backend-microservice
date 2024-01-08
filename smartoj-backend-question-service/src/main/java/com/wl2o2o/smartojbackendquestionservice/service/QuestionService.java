@@ -47,4 +47,12 @@ public interface QuestionService extends IService<Question> {
      * @return
      */
     Page<QuestionVO> getQuestionVOPage(Page<Question> questionSubmitPage, HttpServletRequest request);
+    //
+    // // questionService.incrementSubmitNum(questionId);
+    //
+    // /**
+    //  * submitNum + 1
+    //  * @param questionId
+    //  */
+    // void incrementSubmitNum(Long questionId);
 }

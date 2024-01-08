@@ -4,10 +4,7 @@ package com.wl2o2o.smartojbackendserviceclient.service;
 import com.wl2o2o.smartojbackendmodel.model.entity.Question;
 import com.wl2o2o.smartojbackendmodel.model.entity.QuestionSubmit;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 针对表 question 的数据库操作 service
@@ -32,7 +29,6 @@ public interface QuestionFeignClient {
      */
     @GetMapping("/question_submit/get/id")
     QuestionSubmit getQuestionSubmitById(@RequestParam("questionId") long questionId);
-
     /**
      * 根据 id 获取题目更新信息
      * @param questionSubmit
@@ -40,4 +36,12 @@ public interface QuestionFeignClient {
      */
     @PostMapping("/question_submit/update")
     boolean updateQuestionSubmitById(@RequestBody QuestionSubmit questionSubmit);
+
+    /**
+     * 保存数据
+     * @param question
+     * @return
+     */
+    @PostMapping("/question/save")
+    boolean updateQuestion(@RequestBody Question question);
 }

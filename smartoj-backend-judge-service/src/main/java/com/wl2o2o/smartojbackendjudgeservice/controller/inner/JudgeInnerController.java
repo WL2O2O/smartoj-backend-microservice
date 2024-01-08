@@ -32,7 +32,7 @@ public class JudgeInnerController implements JudgeFeignClient {
      */
     @Override
     @PostMapping("/do")
-    public QuestionSubmit doJudge(@RequestParam("questionId") long questionSubmitId) {
+    public QuestionSubmit doJudge(@RequestParam("questionSubmitId") long questionSubmitId) {
         return judgeService.doJudge(questionSubmitId);
     }
 }

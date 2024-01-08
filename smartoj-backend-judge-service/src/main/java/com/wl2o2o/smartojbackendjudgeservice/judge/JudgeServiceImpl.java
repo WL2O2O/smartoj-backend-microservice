@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * @create 2023/12/18 19:55
  */
 @Service
-public class JudgeServiceImpl implements JudgeService {
+public class JudgeServiceImpl implements JudgeService{
 
     @Resource
     private Question question;
@@ -43,18 +43,22 @@ public class JudgeServiceImpl implements JudgeService {
 
     @Override
     public QuestionSubmit doJudge(long questionSubmitId) {
+        // 1、传入题目的提交 id，获取到对应的题目、提交信息（包含代码、编程语言等）
         QuestionSubmit questionSubmit = questionFeignClient.getQuestionSubmitById(questionSubmitId);
         if (questionSubmit == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "提交信息不存在！");
         }
+        // 通过提交的信息中的题目id 获取到题目的全部信息
         Long questionId = questionSubmit.getQuestionId();
         Question question = questionFeignClient.getQuestionById(questionId);
         if (question == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "题目不存在！");
         }
+        // 2、如果题目提交状态不为等待中
         if (!questionSubmit.getStatus().equals(QuestionSubmitStatusEnum.WAITING.getValue())) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "题目正在判题中！");
         }
+        // 3、更改判题（题目提交）的状态为 “判题中”，防止重复执行，也能让用户即时看到状态
         QuestionSubmit questionSubmitUpdate = new QuestionSubmit();
         questionSubmitUpdate.setId(questionSubmitId);
         questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.RUNNING.getValue());
@@ -62,7 +66,7 @@ public class JudgeServiceImpl implements JudgeService {
         if (!update) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "题目状态更新错误");
         }
-        // 调用代码沙箱
+        // 4、调用沙箱，获取到执行结果
         // 创建示例代码沙箱的测试类对象
         CodeSandBox codeSandBox = CodeSandBoxFactory.newInstance(type);
         CodeSandBoxProxy codeSandBoxProxy = new CodeSandBoxProxy(codeSandBox);
@@ -101,6 +105,7 @@ public class JudgeServiceImpl implements JudgeService {
         if (!update) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "题目状态更新错误");
         }
+        // 再次查询数据库，返回最新提交信息
         QuestionSubmit questionSubmitResult = questionFeignClient.getQuestionSubmitById(questionId);
         return questionSubmitResult;
     }

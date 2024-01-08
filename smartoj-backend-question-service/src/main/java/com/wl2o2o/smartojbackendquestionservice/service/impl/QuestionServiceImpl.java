@@ -159,6 +159,20 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
         return questionVOPage;
     }
 
+    // @Override
+    // public void incrementSubmitNum(Long questionId) {
+    //     Integer submitNum = question.getSubmitNum();
+    //     Question updateQuestion = new Question();
+    //     synchronized (question.getSubmitNum()) {
+    //         submitNum = submitNum + 1;
+    //         updateQuestion.setId(questionId);
+    //         updateQuestion.setSubmitNum(submitNum);
+    //         boolean save = questionService.updateById(updateQuestion);
+    //         if (!save) {
+    //             throw new BusinessException(ErrorCode.OPERATION_ERROR, "数据保存失败");
+    //         }
+    //     }
+    // }
 }
 
 

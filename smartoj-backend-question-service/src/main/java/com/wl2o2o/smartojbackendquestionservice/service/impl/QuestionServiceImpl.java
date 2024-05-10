@@ -94,6 +94,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
         Long userId = questionQueryRequest.getUserId();
         String title = questionQueryRequest.getTitle();
         List<String> tags = questionQueryRequest.getTags();
+        String difficulty = questionQueryRequest.getDifficulty();
         String content = questionQueryRequest.getContent();
         String answer = questionQueryRequest.getAnswer();
         String sortField = questionQueryRequest.getSortField();
@@ -102,6 +103,8 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
         queryWrapper.like(StringUtils.isNotBlank(title), "title", title);
         queryWrapper.like(StringUtils.isNotBlank(content), "content", content);
         queryWrapper.like(StringUtils.isNotBlank(answer), "answer", answer);
+        queryWrapper.like(StringUtils.isNotBlank(difficulty), "difficulty", difficulty);
+
 
         if (CollectionUtils.isNotEmpty(tags)) {
             for (String tag : tags) {

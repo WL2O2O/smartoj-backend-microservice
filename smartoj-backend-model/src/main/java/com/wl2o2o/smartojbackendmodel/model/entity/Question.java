@@ -27,6 +27,11 @@ public class Question implements Serializable {
     private Long userId;
 
     /**
+     * 判题状态（0 - 待判题、1 - 判题中、2 - 成功、3 - 失败）
+     */
+    private Integer status;
+
+    /**
      * 题目标题
      */
     private String title;
@@ -35,6 +40,13 @@ public class Question implements Serializable {
      * 题目标签
      */
     private String tags;
+
+
+
+    /**
+     * 题目难度
+     */
+    private String difficulty;
 
     /**
      * 题目内容

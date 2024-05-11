@@ -50,6 +50,16 @@ public class QuestionController {
 
     private final static Gson GSON = new Gson();
 
+    /**
+     * 获取题目id列表
+     * @return
+     */
+    @GetMapping("/get/ids")
+    public BaseResponse<List<Long>> getQuestionIdList() {
+        List<Long> questionIdList = questionService.getAllQuestionIds();
+        return ResultUtils.success(questionIdList);
+    }
+
     // region 增删改查
 
     /**

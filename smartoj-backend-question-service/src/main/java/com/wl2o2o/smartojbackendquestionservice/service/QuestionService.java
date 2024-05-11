@@ -8,11 +8,20 @@ import com.wl2o2o.smartojbackendmodel.model.entity.Question;
 import com.wl2o2o.smartojbackendmodel.model.vo.QuestionVO;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  *
  */
 public interface QuestionService extends IService<Question> {
+
+    /**
+     * 获取所有题目的ID列表
+     * @return 题目ID的List
+     */
+    List<Long> getAllQuestionIds();
+
+
     /**
      * 校验
      *

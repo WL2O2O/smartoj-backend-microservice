@@ -19,7 +19,7 @@ spring:
   # 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/smartoj
+    url: jdbc:mysql://localhost:3306/oj
     username: root
     password: weilei20010625
   # Redis 配置

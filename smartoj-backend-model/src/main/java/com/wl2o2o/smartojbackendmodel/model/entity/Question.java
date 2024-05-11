@@ -15,11 +15,18 @@ import java.util.Date;
 @Data
 @Component
 public class Question implements Serializable {
+    // /**
+    //  * 题目id
+    //  */
+    // @TableId(type = IdType.ASSIGN_ID)
+    // private Long id;
+
     /**
      * 题目id
      */
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.AUTO)
     private Long id;
+
 
     /**
      * 创建用户id

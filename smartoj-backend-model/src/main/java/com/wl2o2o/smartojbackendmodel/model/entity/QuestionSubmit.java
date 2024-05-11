@@ -13,10 +13,16 @@ import java.util.Date;
 @TableName(value ="question_submit")
 @Data
 public class QuestionSubmit implements Serializable {
+    // /**
+    //  * id
+    //  */
+    // @TableId(type = IdType.ASSIGN_ID)
+    // private Long id;
+
     /**
      * id
      */
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**

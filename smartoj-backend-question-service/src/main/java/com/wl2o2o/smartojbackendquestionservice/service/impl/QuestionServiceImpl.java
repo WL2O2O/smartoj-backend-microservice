@@ -39,6 +39,13 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
     private UserFeignClient userFeignClient;
 
 
+    @Override
+    public List<Long> getAllQuestionIds() {
+        return baseMapper.selectList(new QueryWrapper<Question>().select("id")).stream()
+                .map(Question::getId)
+                .collect(Collectors.toList());
+    }
+
     /**
      * 校验题目是否合法
      * @param question

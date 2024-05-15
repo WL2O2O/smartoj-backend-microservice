@@ -15,11 +15,8 @@ import com.wl2o2o.smartojbackendmodel.model.codesandbox.ExecuteCodeResponse;
  * @create 2023/12/16 16:58
  */
 public class RemoteCodeSandBox implements CodeSandBox {
-
     private static final String AUTH_REQUEST_HEADER = "auth";
-
     private static final String AUTH_REQUEST_SECRET = "secretKey";
-
     @Override
     public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
         System.out.println("远程代码沙箱");

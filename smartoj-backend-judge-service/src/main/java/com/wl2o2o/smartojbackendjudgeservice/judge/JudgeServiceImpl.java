@@ -99,6 +99,15 @@ public class JudgeServiceImpl implements JudgeService{
         // 6）修改数据库中的判题结果
         questionSubmitUpdate = new QuestionSubmit();
         questionSubmitUpdate.setId(questionSubmitId);
+        // // 增加一种情况，就是当代码编译错误时，就设置判题状态为失败
+        // if (judgeContext.getJudgeInfo() == null) {
+        //     questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.FAILED.getValue());
+        // } else {
+        //     questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.SUCCEED.getValue());
+        // }
+        // if (judgeInfo.getMessage() == null) {
+        //     questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.FAILED.getValue());
+        // }
         questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.SUCCEED.getValue());
         questionSubmitUpdate.setJudgeInfo(JSONUtil.toJsonStr(judgeInfo));
         update = questionFeignClient.updateQuestionSubmitById(questionSubmitUpdate);

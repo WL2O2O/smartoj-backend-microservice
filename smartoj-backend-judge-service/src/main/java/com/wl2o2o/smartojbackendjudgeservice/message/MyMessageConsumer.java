@@ -73,6 +73,8 @@ public class MyMessageConsumer {
                     acceptedNum = acceptedNum + 1;
                     updateQuestion.setId(questionId);
                     updateQuestion.setAcceptNum(acceptedNum);
+                    // 标记题库状态为通过
+                    updateQuestion.setStatus(1);
                     boolean save = questionFeignClient.updateQuestion(updateQuestion);
                     if (!save) {
                         throw new BusinessException(ErrorCode.OPERATION_ERROR, "保存数据失败");

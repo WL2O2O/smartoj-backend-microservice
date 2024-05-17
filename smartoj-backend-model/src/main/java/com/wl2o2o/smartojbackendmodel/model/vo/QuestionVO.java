@@ -35,6 +35,11 @@ public class QuestionVO implements Serializable {
     private String difficulty;
 
     /**
+     * 题目答案
+     */
+    private String answer;
+
+    /**
      * 创建用户id
      */
     private Long userId;

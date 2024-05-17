@@ -6,6 +6,7 @@ import com.wl2o2o.smartojbackendmodel.model.entity.QuestionSubmit;
 /**
  * @Entity com.wl2o2o.smartoj.model.entity.QuestionSubmit
  */
+// @Repository
 public interface QuestionSubmitMapper extends BaseMapper<QuestionSubmit> {
 
 }

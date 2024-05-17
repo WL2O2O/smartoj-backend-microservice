@@ -344,4 +344,16 @@ public class QuestionController {
         return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage, loginUser));
     }
 
+    /**
+     * 通过ID获取QuestionSubmit详情
+     *
+     * @param id QuestionSubmit ID
+     * @return QuestionSubmit详情
+     */
+    @GetMapping("/question_submit/{id}")
+    public QuestionSubmit getQuestionSubmitById(@PathVariable("id") Long id) {
+        QuestionSubmit questionSubmit = questionSubmitService.getById(id);
+        return questionSubmit;
+    }
+
 }

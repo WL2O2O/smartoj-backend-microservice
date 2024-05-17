@@ -13,6 +13,12 @@ import com.wl2o2o.smartojbackendmodel.model.vo.QuestionSubmitVO;
  *
  */
 public interface QuestionSubmitService extends IService<QuestionSubmit> {
+
+    /**
+     * 通过id获取questionSubmit
+     */
+
+    QuestionSubmit getById(Long id);
     /**
      * 题目提交
      *

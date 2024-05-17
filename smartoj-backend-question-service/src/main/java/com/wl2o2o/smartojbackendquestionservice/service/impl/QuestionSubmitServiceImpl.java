@@ -39,6 +39,9 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     implements QuestionSubmitService {
 
     @Resource
+    private QuestionSubmitMapper questionSubmitMapper;
+
+    @Resource
     private QuestionService questionService;
 
     @Resource
@@ -51,6 +54,11 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
     @Resource
     private MyMessageProducer myMessageProducer;
+
+    @Override
+    public QuestionSubmit getById(Long id) {
+        return questionSubmitMapper.selectById(id);
+    }
 
     /**
      * 题目提交
@@ -181,6 +189,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         questionSubmitVOPage.setRecords(questionSubmitVOList);
         return questionSubmitVOPage;
     }
+
 
     // /**
     //  * 封装了事务的方法
